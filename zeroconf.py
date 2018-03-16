@@ -148,7 +148,7 @@ _TYPES = {_TYPE_A: "a",
           _TYPE_ANY: "any"}
 
 _HAS_A_TO_Z = re.compile(r'[A-Za-z]')
-_HAS_ONLY_A_TO_Z_NUM_HYPHEN = re.compile(r'^[A-Za-z0-9\-]+$')
+_HAS_ONLY_A_TO_Z_NUM_HYPHEN = re.compile(r'^[A-Za-z0-9\-\_]+$')
 _HAS_ASCII_CONTROL_CHARS = re.compile(r'[\x00-\x1f\x7f]')
 
 
