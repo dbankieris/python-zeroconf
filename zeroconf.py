@@ -35,7 +35,7 @@ import threading
 import time
 from functools import reduce
 
-import netifaces
+import ifaddr
 from six import binary_type, indexbytes, int2byte, iteritems, text_type
 from six.moves import xrange
 
@@ -1486,7 +1486,7 @@ class ServiceInfo(object):
 
         try:
             zc.add_listener(self, DNSQuestion(self.name, _TYPE_ANY, _CLASS_IN))
-            while None in (self.server, self.address, self.text):
+            while None in (self.server, self.address):
                 if last <= now:
                     return False
                 if next_ <= now:
@@ -1584,11 +1584,10 @@ class ZeroconfServiceTypes(object):
 
 def get_all_addresses(address_family):
     return list(set(
-        addr['addr']
-        for iface in netifaces.interfaces()
-        for addr in netifaces.ifaddresses(iface).get(address_family, [])
-        if addr.get('netmask') != HOST_ONLY_NETWORK_MASK
-    ))
+	ip.ip
+	for adapter in ifaddr.get_adapters()
+	for ip in adapter.ips
+	if isinstance(ip.ip, basestring)))
 
 
 def normalize_interface_choice(choice, address_family):
